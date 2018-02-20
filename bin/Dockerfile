@@ -1,18 +1,15 @@
-FROM wordpress:cli-php5.6
+ARG PHP_VERSION
+
+FROM wordpress:cli-php${PHP_VERSION}
 
 USER root
-
-RUN echo http://mirror.yandex.ru/mirrors/alpine/v3.4/main > /etc/apk/repositories; \
-    echo http://mirror.yandex.ru/mirrors/alpine/v3.4/community >> /etc/apk/repositories
 
 RUN apk --no-cache --update add bash subversion sudo
 
 RUN docker-php-ext-install pdo_mysql
 
-# This allows the script to call sudo without a TTY. Might be better just to run
-# wp-cli with "--allow-root" (which is the only reason we run as www-data).
-RUN echo "www-data ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+RUN echo 'date.timezone = "UTC"' > /usr/local/etc/php/conf.d/timezone.ini
 
-USER www-data
+ENV WP_CLI_ARGS="--allow-root"
 
 WORKDIR /project
