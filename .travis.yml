@@ -35,6 +35,8 @@ install:
 before_script:
   - docker-compose up -d
   - docker-compose run --rm tests ./bin/install-wp-tests.sh ignored root testing mysql_test $WP_VERSION true
+  - docker-compose ps
+  - docker-compose logs wpgraphql_test
 
 script:
   - docker-compose run --rm tests ./vendor/bin/codecept run acceptance --env docker
