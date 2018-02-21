@@ -19,9 +19,6 @@
       "name": "Hughie Devore"
     }
   ],
-  "scripts": {
-    "test": "phpunit"
-  },
   "require": {
     "webonyx/graphql-php": "^0.11.2",
     "ivome/graphql-relay-php": "^0.3.1"
